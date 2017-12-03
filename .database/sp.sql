@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1:3306
--- Vytvořeno: Ned 03. pro 2017, 20:05
+-- Vytvořeno: Ned 03. pro 2017, 20:18
 -- Verze serveru: 5.7.19
 -- Verze PHP: 5.6.31
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
 START TRANSACTION;
@@ -21,6 +22,9 @@ SET time_zone = "+00:00";
 --
 -- Databáze: `sp`
 --
+DROP DATABASE IF EXISTS `sp`;
+CREATE DATABASE IF NOT EXISTS `sp` DEFAULT CHARACTER SET utf8 COLLATE utf8_czech_ci;
+USE `sp`;
 
 -- --------------------------------------------------------
 
@@ -153,6 +157,7 @@ ALTER TABLE `evaluation`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_right`) REFERENCES `rights` (`id_right`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
