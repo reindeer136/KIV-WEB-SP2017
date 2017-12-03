@@ -1,2 +1,2 @@
 # KIV-WEB-SP2017
-Semestrální práce předmětuKIV/WEB
+Semestrální práce předmětu KIV/WEB pro rok 2017
