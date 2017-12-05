@@ -15,9 +15,10 @@
     // pages - povolene stranky
     $pages = array();
     $pages["home"] = "Homepage";
-    $pages["kontakt"] = "Kontakt";
+    $pages["articles"] = "Články";
     $pages["login"] = "Login";
     $pages["reg"] = "Registrace";
+    
 
 
     //$pages["error"] = "Error 404";
@@ -35,14 +36,14 @@
     // pokud stranka neni povolena, vrat 404 controller
     if (!array_key_exists($page, $pages)) {
         $page = "error";
-        $obsah = phpWrapperFromFile("controllers/error.php");
-        $paticka = phpWrapperFromFile("controllers/paticka.php");
+        $obsah = phpWrapperFromFile("controllers/$page.php");
+        $paticka = phpWrapperFromFile("controllers/footer.php");
     }
 
     //include stranky s obsahem
     if (array_key_exists($page, $pages)) {        
         $obsah = phpWrapperFromFile("controllers/$page.php");
-        $paticka = phpWrapperFromFile("controllers/paticka.php");
+        $paticka = phpWrapperFromFile("controllers/footer.php");
     }    
 
     //echo "page je: $page ";
