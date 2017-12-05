@@ -1,7 +1,8 @@
 <?php
     //include souboru s funkcemi
-    include_once("inc/functions.php");
+    include_once("inc/functions.inc.php");
     include_once("controllers/base.php");
+
 
     //nacteni parametru page
     if (isset($_REQUEST["page"]))
@@ -18,6 +19,7 @@
     $pages["articles"] = "Články";
     $pages["login"] = "Login";
     $pages["reg"] = "Registrace";
+    $pages["loginNew"] = "Login2";
     
 
 

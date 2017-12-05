@@ -392,12 +392,148 @@ class db_pdo
 				}
 	}
 	
-	public function DBUpdate()
+	
+	public function DBUpdate($table_name, $set, $where_array)
+
 	{
-        // TODO tuto metodu si již musíte dopsat sami
+
+        // MySql
+
+		$mysql_pdo_error = false;
+
+	
+
+		// SLOZIT TEXT STATEMENTU s otaznikama
+
+        $where_pom ="";    
+        $update_pom ="";        
+
+		if ($set != null)
+			foreach ($set as $index => $item)
+			{
+
+				// pridat AND
+				if ($update_pom != "") $update_pom .= ", ";
+                
+				$column = $item["column"];
+
+				if (key_exists("value", $item))
+					$value_pom = "?"; 						
+				else if (key_exists("value_mysql", $item))
+					$value_pom = $item["value_mysql"]; 		
+
+				$update_pom .= "`$column` =  $value_pom ";
+			}
+
+        
+
+        
+
+		if ($where_array != null)
+			foreach ($where_array as $index => $item)
+			{
+
+				// pridat AND
+				if ($where_pom != "") $where_pom .= "AND ";
+
+				$column = $item["column"];
+				$symbol = $item["symbol"];
+
+				if (key_exists("value", $item))
+					$value_pom = "?"; 						
+				else if (key_exists("value_mysql", $item))
+					$value_pom = $item["value_mysql"]; 		
+				$where_pom .= "`$column` $symbol  $value_pom ";
+
+			}        
+
+        // doplnit slovo set
+			if (trim($update_pom) != "") $update_pom = "set $update_pom";
+        // doplnit slovo where
+			if (trim($where_pom) != "") $where_pom = "where $where_pom";
+				
+
+			// 1) pripravit dotaz s dotaznikama
+			$query = "update `".$table_name."` $update_pom  $where_pom;";
+				
+
+			// 2) pripravit si statement
+			$statement = $this->connection->prepare($query);				
+
+			// 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
+			$bind_param_number = 1;
+
+	       
+
+            if ($set != null)
+				foreach ($set as $index => $item)
+				{
+					if (key_exists("value", $item))
+					{
+
+						$value = $item["value"];
+
+						//echo "navazuju value: $value";
+
+							
+
+						$statement->bindValue($bind_param_number, $value);
+
+						$bind_param_number ++;
+
+					}
+				}
+
+        
+
+			if ($where_array != null)
+				foreach ($where_array as $index => $item)
+				{
+					if (key_exists("value", $item))
+					{
+						$value = $item["value"];
+						$statement->bindValue($bind_param_number, $value);
+						$bind_param_number ++;
+					}
+				}
+
+
+					
+
+				// 4) provest dotaz
+				$statement->execute();	
+
+				// 5) kontrola chyb
+				$errors = $statement->errorInfo();
+                //printr($errors);
+
+					
+
+				if ($errors[0] + 0 > 0)
+				{
+					// nalezena chyba
+					$mysql_pdo_error = true;
+				}
+
+					
+
+				// 6) nacist data a vratit
+				if ($mysql_pdo_error == false)
+				{
+
+					return "1";
+				}
+
+				else
+				{
+					echo "Chyba v dotazu - PDOStatement::errorInfo(): ";
+					print_r($errors);
+					echo "SQL dotaz: $query";
+				}
+
 	}
-	
-	
+
+		
 	/**
 	 * Upravit polozku v DB.
 	 *
