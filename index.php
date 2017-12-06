@@ -19,7 +19,7 @@
     $pages["articles"] = "Články";
     $pages["login"] = "Login";
     $pages["reg"] = "Registrace";
-    $pages["loginNew"] = "Login2";
+ //   $pages["loginNew"] = "Login2";
     
 
 
