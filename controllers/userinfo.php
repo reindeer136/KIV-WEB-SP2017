@@ -11,7 +11,9 @@
     $userinfo = new userinfo();
     $userinfo->Connect();
 
-    $vypis_dat = $userinfo->LoadAllUserinfos();
+    $username = $_SESSION['user'];
+
+    $vypis_dat = $userinfo->LoadAllUserinfos($username);
 //    printr($vypis_dat);
 
     if ($vypis_dat != null)

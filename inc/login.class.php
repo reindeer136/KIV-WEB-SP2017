@@ -21,7 +21,7 @@ include_once("./inc/userinfo.class.php");
         $count = mysqli_num_rows($result);
         
         
-        
+        //zjisteni, zda uzivatel nebyl eliminovat (musi byt v poli exist cislo 1, nikoli 0)
         $userinfo = new userinfo();
         $userinfo->Connect();
 
@@ -31,14 +31,16 @@ include_once("./inc/userinfo.class.php");
         if ($vypis_dat != null)
             foreach ($vypis_dat as $userinfo)
             {
- //               echo "ID uživatele: $userinfo[id_user], Jméno uživatele: $userinfo[name] <br/>";
-            
                 $existuje = $userinfo["exist"];
-  //              printr($existuje);
+                $id_uzivatele = $userinfo["id_user"];
+                $prava = $userinfo["id_right"];
             }
-
+        
+        else{
+            $existuje = "0";
+        }
 		
-        if($count == 1 && exist =="1") {
+        if($count == 1 && $existuje =="1") {
             
             //nastaveni stavu ze je uzivatel prihlasen
             $_SESSION['logged'] = "true";
@@ -46,12 +48,15 @@ include_once("./inc/userinfo.class.php");
             //ulozeni do session uzivatelskeho jmena uzivatele
             $_SESSION['user'] = $myusername;
             
-            //$_SESSION['id'] = $result;
+            $_SESSION['id'] = $id_uzivatele;
+            
+            $_SESSION['rights'] = $prava;
+            
             
 
             header("location: index.php");
             }
-        elseif($count == 1 && exist ==0){
+        elseif($count == 1 && $existuje == "0"){
             $error = "Tento uživatel byl eliminován, kontaktujte administrátora";
             echo $error;
             printr($exist);
