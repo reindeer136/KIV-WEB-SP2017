@@ -1,22 +1,20 @@
 <?php
- //  session_start();
+
+function logOut(){
+    
+    include("./controllers/logout.php");
+    include("./view/logout.view.html");
+    }
+
+    printr($_SESSION);
+    
+    $logout = logOut();
+
+    echo $logout;
 
 
-	function logOut(){
-		?>
-		
-        <form action="" method="POST">
-            <input type="hidden" name="action" value="logout">
-            <input type="submit" class="btn btn-info btn-sm " name="potvrzeni" value="Odhlásit">
-        </form>
-        <?php 
-	}
-
-/*
-   
+/*   
    if(session_destroy()) {
       header("Location: .php");
    }
-   
    */
-?>

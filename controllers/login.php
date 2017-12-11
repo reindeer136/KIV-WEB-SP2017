@@ -1,10 +1,9 @@
 <?php
+    if(!isset($_SESSION['logged'])){
+        include('./inc/login.class.php');
+        include_once("./view/login.view.html");        
+    }
 
-//include('./inc/login.class.php');
-session_start();
-   if(!isset($_SESSION['login_user'])){
-      include('./inc/login.class.php');
-   }
     else{
         include('./inc/logout.class.php');
     }
