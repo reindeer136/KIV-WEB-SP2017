@@ -3,21 +3,21 @@
 	<div class="logo">Registrace</div>
 	<!-- Main Form -->
 	<div class="login-form-1">
-		<form id="register-form" class="text-left">
+		<form id="register-form" class="text-left" action="" method="post">
 			<div class="login-form-main-message"></div>
 			<div class="main-login-form">
 				<div class="login-group">
                     <div class="form-group">
 						<label for="reg_fullname" class="sr-only">Celé jméno</label>
-						<input type="text" class="form-control" id="reg_fullname" name="reg_fullname" placeholder="Celé jméno">
+						<input type="text" class="form-control" id="name" name="name" placeholder="Celé jméno">
 					</div>
 					<div class="form-group">
 						<label for="reg_username" class="sr-only">Uživatelské jméno</label>
-						<input type="text" class="form-control" id="reg_username" name="reg_username" placeholder="Uživatelské jméno">
+						<input type="text" class="form-control" id="username" name="username" placeholder="Uživatelské jméno">
 					</div>
 					<div class="form-group">
 						<label for="reg_password" class="sr-only">Heslo</label>
-						<input type="password" class="form-control" id="reg_password" name="reg_password" placeholder="Heslo">
+						<input type="password" class="form-control" id="password" name="password" placeholder="Heslo">
 					</div>
 					<div class="form-group">
 						<label for="reg_password_confirm" class="sr-only">Potvrzení hesla</label>
@@ -26,12 +26,13 @@
 					
 					<div class="form-group">
 						<label for="reg_email" class="sr-only">E-mail</label>
-						<input type="text" class="form-control" id="reg_email" name="reg_email" placeholder="E-mail">
+						<input type="text" class="form-control" id="email" name="email" placeholder="E-mail">
 					</div>
-					<div class="form-group login-group-checkbox">
+<!--					<div class="form-group login-group-checkbox">
 						<input type="checkbox" class="" id="reg_agree" name="reg_agree">
 						<label for="reg_agree">Souhlasím s <a href="#">pravidly konference</a></label>
 					</div>
+-->
 				</div>
 				<button type="submit" class="btn btn-default">Registrovat</button>
 			</div>
