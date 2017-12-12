@@ -1,31 +1,23 @@
 <?php
-    //include souboru s funkcemi
-    include_once("inc/functions.inc.php");
-    include_once("controllers/base.php");
 
+//start session
+session_start();
 
-    //nacteni parametru page
-    if (isset($_REQUEST["page"]))
-        $page = $_REQUEST["page"];
-    else
-        $page = "home";
+//include souboru s funkcemi
+include_once("inc/functions.inc.php");
+include_once("controllers/base.php");
+include_once("controllers/menu.ctrl.php");
 
-    //testovaci vypis
-    //echo "page: $page <br/>";
-
-    // pages - povolene stranky
-    $pages = array();
-    $pages["home"] = "Homepage";
-    $pages["articles"] = "Články";
-    $pages["login"] = "Login";
-    $pages["reg"] = "Registrace";
-    $pages["loginNew"] = "Login2";
-    
-
-
-    //$pages["error"] = "Error 404";
-
-    //generovani menu
+//nacteni parametru page
+if (isset($_REQUEST["page"])){
+    $page = $_REQUEST["page"];
+}
+        
+else{
+    $page = "home";    
+}
+        
+//generovani menu
     $menu = "";
         if ($pages != null)
             foreach ($pages as $key => $title)
@@ -58,3 +50,7 @@
     $loader = new Twig_Loader_Filesystem('sablony');
     $twig = new Twig_Environment($loader, array());
     echo $twig->render('sablona1.htm', array('menu' => $menu, 'obsah' => $obsah, 'paticka'=> $paticka));
+
+
+//pomocne pro kontrolu vseho co je v session
+printr($_SESSION);

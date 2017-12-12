@@ -1,4 +1,5 @@
 <?php
 // do php stuff
-
-include('./view/reg.html');
+include('./inc/register.class.php');
+include('./view/reg.view.html');
+//printr($_SESSION);
