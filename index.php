@@ -8,6 +8,10 @@ include_once("inc/functions.inc.php");
 include_once("controllers/base.php");
 include_once("controllers/menu.ctrl.php");
 
+if (!isset($_SESSION["rights"])){
+    $_SESSION["rights"]=1;
+}
+
 //nacteni parametru page
 if (isset($_REQUEST["page"])){
     $page = $_REQUEST["page"];

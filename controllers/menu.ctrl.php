@@ -2,18 +2,18 @@
 
 if(isset($_SESSION['logged'])){
     $pages = array();
-    $pages["home"] = "Homepage";
-    $pages["articles"] = "Články";
+    $pages["home"] = "Úvod";
+    $pages["myarticles"] = "Moje články";
     $pages["userinfo"] = "Info o uživateli";
-    $pages["logout"] = "Logout";
-    $pages["reg"] = "Registrace";
+    $pages["logout"] = "Odhlášení";
+//    $pages["reg"] = "Registrace";
     
 }
 else{
         $pages = array();
-    $pages["home"] = "Homepage";
+    $pages["home"] = "Úvod";
     $pages["articles"] = "Články";
-    $pages["login"] = "Login";
+    $pages["login"] = "Přihlášení";
     $pages["reg"] = "Registrace";
 }
 

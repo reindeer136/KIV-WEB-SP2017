@@ -1,11 +1,16 @@
-        <form action="" method="POST">
-            <input type="hidden" name="action" value="logout">
-            <input onclick="" type="submit" class="btn btn-info btn-sm " name="potvrzeni" value="Odhlásit">
-        </form>
+<html>
+
+<form action="" method="POST">
+    <input type="hidden" name="action" value="logout">
+    <input onclick="" type="submit" class="btn btn-info btn-sm " name="logout" value="Odhlásit">
+</form>
 <?php
 //unset($_SESSION);
 
-
-session_destroy();
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+    session_destroy();
+    header("location: index.php");
+}
 ?>
 
+</html>

@@ -6,6 +6,7 @@
     include_once("./inc/articles.class.php");
     include_once("./inc/settings.inc.php");
     include_once("./inc/functions.inc.php");
+    
 
 
 // vytvoreni objektu
@@ -13,7 +14,7 @@
     $articles->Connect();
 
     $vypis_clanku = $articles->LoadAllArticles();
-     printr($vypis_clanku);
+//     printr($vypis_clanku);
 
     if ($vypis_clanku != null)
         foreach ($vypis_clanku as $article)
