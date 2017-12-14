@@ -42,7 +42,7 @@ class db_pdo
 			
 		// vznik chyby v PDO
 		$mysql_pdo_error = false;
-			
+
 		// slozit si podminku s otaznikama
 		$where_pom = "";
 			
@@ -247,6 +247,8 @@ class db_pdo
 	 */
 	public function DBInsert($table_name, $item)
 	{
+        printr($table_name);
+        printr($item);
 		// MySql
 		$mysql_pdo_error = false;
 	
@@ -283,6 +285,7 @@ class db_pdo
 					
 				// 4) provest dotaz
 				$statement->execute();
+                //echo "SQL dotaz: $statement";
 	
 				// 5) kontrola chyb
 				$errors = $statement->errorInfo();
@@ -306,6 +309,7 @@ class db_pdo
 					printr($errors);
 					echo "SQL dotaz: $query";
 				}
+        
 	}
 	
 	

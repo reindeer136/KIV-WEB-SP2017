@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <body>
+
     
+<button type="button" class="btn btn-default" onclick="zobrazForm()" >Přidat další článek</button>
+
     
-<div class="container">
+<div class="container" id="add" style="display:none;">
 <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
     <div class="form-group">Prosíme, vyplňte k Vašemu článku pár základních údajů:
     </div>
@@ -14,9 +17,9 @@
 			</div>
     </div>
 	<div class="form-group">
-		<label class="control-label col-sm-2" for="popis">Stručný popis příspěvku</label>
+		<label class="control-label col-sm-2" for="popis">Stručný popis</label>
 			<div class="col-sm-7">
-				<textarea class="form-control" maxlength="250" name="popis" required rows="10"></textarea>
+				<textarea class="form-control" maxlength="250" name="abstract" required rows="10"></textarea>
 			</div>
     </div>
     <div class="form-group">
@@ -32,6 +35,17 @@
     </div>
 </form>
 </div>
+    
+<script>
+function zobrazForm() {
+    var x = document.getElementById("add");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+    } else {
+        x.style.display = "none";
+    }
+} 
+</script>
 
 </body>
 </html>

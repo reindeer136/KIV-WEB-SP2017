@@ -12,7 +12,7 @@ include_once("./inc/userinfo.class.php");
 $articles = new articlesread();
 $articles->Connect();
 
-$vypis_clanku = $articles->LoadVisibleArticles();
+$vypis_clanku = $articles->LoadAllArticles();
 //     printr($vypis_clanku);
 
 if ($vypis_clanku != null){

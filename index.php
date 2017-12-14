@@ -57,4 +57,4 @@ else{
 
 
 //pomocne pro kontrolu vseho co je v session
-printr($_SESSION);
+//printr($_SESSION);
