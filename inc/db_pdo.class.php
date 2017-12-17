@@ -411,7 +411,7 @@ class db_pdo
 			foreach ($set as $index => $item)
 			{
                 
-                printr($set);
+                //printr($set);
                 //printr($index);
                 //printr($item);
                 
@@ -434,7 +434,7 @@ class db_pdo
                 //printr($value_pom);
 
 				$update_pom .= "`$column` $symbol $value_pom ";
-                printr($update_pom);
+                //printr($update_pom);
 			}      
 
         
@@ -470,7 +470,7 @@ class db_pdo
             //printr($query);
 
 			// 2) pripravit si statement
-			$statement = $this->connection->prepare($query);				
+			$statement = $this->connection->prepare($query);		printr($statement);
 
 			// 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
 			$bind_param_number = 1;

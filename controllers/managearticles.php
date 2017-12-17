@@ -5,6 +5,7 @@ include_once("./inc/managearticles.class.php");
 include_once("./inc/settings.inc.php");
 include_once("./inc/functions.inc.php");
 include_once("./inc/userinfo.class.php");
+include_once("./inc/evaluation.class.php");
     
 
 
@@ -24,6 +25,7 @@ if ($vypis_clanku != null){
     <table class="table table-hover">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Autor</th>
         <th>Název</th>
  <!--       <th>Odkaz ke stažení</th>   -->
@@ -35,19 +37,20 @@ if ($vypis_clanku != null){
     </thead>
     <tbody>
     <?php
-    foreach ($vypis_clanku as $article)
+    foreach ($vypis_clanku as $articles)
     {
         ?>
         <tr>
+        <td> <?php echo $articles["id_article"]; ?></td>
         <td>
             <?php
             // vytvoreni objektu
             $userinfo = new userinfo();
             $userinfo->Connect();
 
-            $ID = $article["id_user"];
+            $id = $articles["id_user"];
 
-            $vypis_dat = $userinfo->LoadAllUserinfoAccToID($ID);
+            $vypis_dat = $userinfo->LoadAllUserinfoAccToID($id);
             //    printr($vypis_dat);
 
             if ($vypis_dat != null)
@@ -57,10 +60,9 @@ if ($vypis_clanku != null){
             }
         ?>
         </td>
-        <td> <?php echo $article["a_name"]; ?></td>
+        <td> <?php echo $articles["a_name"]; ?></td>
 
- <!--       <td> <a href="./files/<?php //echo $article["a_filename"]; ?>"><?php //echo $article["a_filename"]; ?></a> </td>  -->
-        <td> <?php if($article["a_state"]=="1") echo "Schváleno"; elseif($article["a_state"]=="2") echo "Recenzuje se";  elseif($article["a_state"]=="3") echo "Zamítnuto"; elseif($article["a_state"]=="4") echo "Nahráno"; else echo "Stala se chyba"; ?></td>
+        <td> <?php if($articles["a_state"]=="1") echo "Schváleno"; elseif($articles["a_state"]=="2") echo "Recenzuje se";  elseif($articles["a_state"]=="3") echo "Zamítnuto"; elseif($articles["a_state"]=="4") echo "Nahráno"; else echo "Stala se chyba"; ?></td>
             
         <td>
             
@@ -72,18 +74,16 @@ if ($vypis_clanku != null){
                     <div class="modal-content">
                         <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Nastavení podrobností článku <?php echo $article["a_name"] ?></h4>
+                        <h4 class="modal-title">Nastavení podrobností článku <?php echo $articles["a_name"] ?></h4>
                         </div>
                         <div class="modal-body">     
                        
-                            <p>Vyberte prosím tři z následujících recenzentů </p>
-                            <?php
+                            <p>Vyberte prosím alespoň tři z následujících recenzentů </p>
+                            <?php                                    
                                     $role = "3";
                                     $recenzentinfo = new userinfo();
-                                    $recenzentinfo->Connect();
+                                    $recenzentinfo->Connect();                             
                                     
-                                    
-
                                     $vypis_recenzentu = $recenzentinfo->LoadAllUserinfoAccToRole($role);
                             ?>
                             <table class="table table-hover">
@@ -106,7 +106,9 @@ if ($vypis_clanku != null){
                                             <form action="" method="post">
                                 
                                             <input type="hidden" name="changerole" value="1">
-                                            <input type="hidden" name="idrecenzent" value="<?php echo $recenzentinfo["id_user"] ?>">                                
+                                            <input type="hidden" name="articlerec" value="<?php echo $articles["id_article"]; ?>">
+                                            <input type="hidden" name="idrecenzent" value="<?php echo $recenzentinfo["id_user"]; ?>">
+                                            <input type="hidden" name="stavclanku" value="2">
                                             <input type="hidden" name="idstate" value="0">      
                                             <button type="submit" class="btn btn-success btn-xs">Vybrat</button>
                             
@@ -117,6 +119,72 @@ if ($vypis_clanku != null){
                                         
                                     </tbody>
                             </table>
+                        <div>
+                            <p>Tento článek již hodnotili:</p>
+                                
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Jméno</th>
+                                            <th>Skore</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td> <?php
+                                        
+                                                $kdohodnotil = new manageevaluations();
+                                                $kdohodnotil->Connect();
+                                                $hodnocenyclanek = $articles["id_article"];
+                                    
+                                                $hodnoceni_recenzentu = $kdohodnotil->LoadEvalSpecificData($hodnocenyclanek);
+        
+                                                //printr($hodnoceni_recenzentu);
+                                        
+                                                if($kdohodnotil != null){
+                                                    
+                                                    foreach($hodnoceni_recenzentu as $kdohodnotil){
+                                                        //printr($kdohodnotil["id_user"]);
+                                                        
+                                                    }
+                                                    
+                                                    
+                                                    
+                                                }?>
+                                        
+                                        
+                                            </td>
+                                            <td>
+                                            
+                                            </td>
+                                            <td> 
+                                            </td>
+                                        </tr>
+                                    
+                                        
+                                    </tbody>
+                            </table>
+                            
+                            
+                            
+                            
+                            <p>Na základě výše uvedených skutečností je nyní možné článek</p>
+                            <form action="" method="post">
+                            <input type="hidden" name="changerole" value="3">
+                            <input type="hidden" name="stavclanku" value="1">
+                            <input type="hidden" name="articlerec" value="<?php echo $articles["id_article"] ?>">
+                                <button type="submit" class="btn btn-info btn-xs">schválit</button></form> nebo
+                            
+                            <form action="" method="post">
+                            <input type="hidden" name="changerole" value="3">
+                            <input type="hidden" name="stavclanku" value="3">
+                            <input type="hidden" name="articlerec" value="<?php echo $articles["id_article"] ?>">
+                            <button type="submit" class="btn btn-warning btn-xs">zamítnout</button>
+                            </form>
+                            
+                        </div>
+                            
                             
                             
                             
@@ -140,20 +208,20 @@ if ($vypis_clanku != null){
             
         <td>
             <form action="" method="post">
-                    <?php if($article["a_exist"]=="1")
+                    <?php if($articles["a_exist"]=="1")
                             { ?>
                         
                                 <input type="hidden" name="changerole" value="2">
                                 <input type="hidden" name="changeexist" value="0">
-                                <input type="hidden" name="idarticle" value="<?php echo $article["id_article"] ?>">
+                                <input type="hidden" name="idarticle" value="<?php echo $articles["id_article"] ?>">
                                 <button type="submit" class="btn btn-danger btn-xs "><span class="glyphicon glyphicon-remove"></span> Smazat</button>                        
                                 <?php
                             }
-                            elseif($article["a_exist"]=="0")
+                            elseif($articles["a_exist"]=="0")
                             { ?>
                                 <input type="hidden" name="changerole" value="2">
                                 <input type="hidden" name="changeexist" value="1">
-                                <input type="hidden" name="idarticle" value="<?php echo $article["id_article"] ?>">
+                                <input type="hidden" name="idarticle" value="<?php echo $articles["id_article"] ?>">
                                 <button type="submit" class="btn btn-success btn-xs"><span class="glyphicon glyphicon-ok"></span> Obnovit</button>
                         
                                 <?php
@@ -186,28 +254,48 @@ else echo "Bohužel zde v tuto chvíli žádné články nejsou...";
 
     if($_SERVER["REQUEST_METHOD"] == "POST")
     {
-        if($_POST['changerole']=="1")
+        if($_POST['changerole']=="2")
         {
             
-            $idchange = $_POST['idchange'];
-            $idstate = $_POST['idstate'];
-                
-            $userchange = new userinfo();
-            $userchange->Connect();
-
-            $vypis_dat = $userchange->UpdateUserInfo($idchange,$idstate);
-                                    
-            header("location: index.php?page=managearticles");
-        }
-        elseif($_POST['changerole']=="2")
-        {
             $idart      = $_POST['idarticle'];
-            $schange    = $_POST['changeexist'];            
-                        
+            $schange    = $_POST['changeexist'];         
+     
+
             $statechange = new managearticles();
             $statechange->Connect();
+            
+            $smazneboobnov = $statechange->DeleteArticle($idart,$schange);           
 
-            $smazneboobnov = $statechange->DeleteArticle($idart,$schange);
+            header("location: index.php?page=managearticles");
+        }
+        elseif($_POST['changerole']=="1")
+        {
+            $arec   = $_POST['articlerec'];
+            $aid    = $_POST['idrecenzent'];
+            $newstate = $_POST['stavclanku'];
+                        
+            $evaluation = new managearticles();
+            $evaluation->Connect();
+            $pridejrecenzenta = $evaluation->EvaluateArticle($aid, $arec);
+            
+            $newartstate = new managearticles();
+            $newartstate->Connect();
+            
+            $zmenstav = $newartstate->UpdateArticleState($arec,$newstate);
+            
+            
+            header("location: index.php?page=managearticles");
+        }
+        elseif($_POST['changerole']=="3")
+        {
+            $arec   = $_POST['articlerec'];
+            $newstate = $_POST['stavclanku'];
+                        
+            $newartstate = new managearticles();
+            $newartstate->Connect();
+            
+            $zmenstav = $newartstate->UpdateArticleState($arec,$newstate);
+            
             
             header("location: index.php?page=managearticles");
         }

@@ -27,7 +27,7 @@ if(isset($_SESSION['rights'])){
     elseif($_SESSION['rights']=="3"){
         $pages = array();
         $pages["home"] = "Úvod";
-        $pages["reviewed"] = "Články přidělené k recenzi";
+        $pages["articlereview"] = "Články přidělené k recenzi";
         $pages["userinfo"] = "Info o uživateli";
         $pages["logout"] = "Odhlášení";
     }

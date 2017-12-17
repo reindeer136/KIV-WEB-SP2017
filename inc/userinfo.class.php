@@ -113,6 +113,8 @@ class userinfo extends db_pdo
         $where[] = array("column" => "id_right", "value" => $id_right, "symbol" => "=");
 
         $userinfo = $this->DBSelectAll($table_name, $columns, $where);
+        
+        //printr($userinfo);
         return $userinfo;
     }
     

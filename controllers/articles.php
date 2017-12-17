@@ -1,7 +1,7 @@
 <?php
 // nacteni souboru
 include_once("./inc/db_pdo.class.php");
-include_once("./inc/articlesread.class.php");
+include_once("./inc/managearticles.class.php");
 include_once("./inc/settings.inc.php");
 include_once("./inc/functions.inc.php");
 include_once("./inc/userinfo.class.php");
@@ -9,7 +9,7 @@ include_once("./inc/userinfo.class.php");
 
 
 // vytvoreni objektu
-$articles = new articlesread();
+$articles = new managearticles();
 $articles->Connect();
 
 $vypis_clanku = $articles->LoadVisibleArticles();
@@ -43,9 +43,9 @@ if ($vypis_clanku != null){
             $userinfo = new userinfo();
             $userinfo->Connect();
 
-            $ID = $article["id_user"];;
+            $id = $article["id_user"];
 
-            $vypis_dat = $userinfo->LoadAllUserinfoAccToID($ID);
+            $vypis_dat = $userinfo->LoadAllUserinfoAccToID($id);
             //    printr($vypis_dat);
 
             if ($vypis_dat != null)
