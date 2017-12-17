@@ -37,7 +37,7 @@ if(isset($_SESSION['rights'])){
     elseif($_SESSION['rights']=="4"){
         $pages = array();
         $pages["home"] = "Úvod";
-        $pages["manageaccounts"] = "Správa uživatelů";
+        $pages["manageusers"] = "Správa uživatelů";
         $pages["managearticles"] = "Správa článků";
         $pages["userinfo"] = "Info o uživateli";
         $pages["logout"] = "Odhlášení";

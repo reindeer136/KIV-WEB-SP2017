@@ -16,7 +16,7 @@ class articlessave extends db_pdo
         printr($item);
 */       
         $item['id_user']    = $id_user;
-        $item['id_']     = $a_name;
+        $item['a_name']     = $a_name;
         $item['a_abstract'] = $a_abstract;
         $item['a_filename'] = $a_filename;
         

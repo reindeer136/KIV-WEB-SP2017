@@ -17,8 +17,7 @@ $vypis_clanku = $articles->LoadAllArticles();
 
 if ($vypis_clanku != null){
     
-    ?>
-    
+    ?>   
 
     <div class="container">
     <h2>Články</h2>
@@ -29,6 +28,8 @@ if ($vypis_clanku != null){
         <th>Název</th>
         <th>Abstrakt</th>
         <th>Odkaz ke stažení</th>
+        <th>Stav</th>
+        
       </tr>
     </thead>
     <tbody>
@@ -58,6 +59,7 @@ if ($vypis_clanku != null){
         <td> <?php echo $article["a_name"]; ?></td>
         <td> <?php echo $article["a_abstract"]; ?></td>
         <td> <a href="./files/<?php echo $article["a_filename"]; ?>"><?php echo $article["a_filename"]; ?></a> </td>
+        <td> <?php if($article["a_state"]=="1") echo "Schváleno"; elseif($article["a_state"]=="2") echo "Recenzuje se";  elseif($article["a_state"]=="3") echo "Zamítnuto"; elseif($article["a_state"]=="4") echo "Nahráno"; else echo "Stala se chyba"; ?></td>
         </tr>
     <?php    
     }

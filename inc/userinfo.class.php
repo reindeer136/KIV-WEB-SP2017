@@ -3,7 +3,7 @@
 class userinfo extends db_pdo
 {
     /**
-     * Nacte udaje o uzivatelich
+     * Nacte udaje o uzivateli podle uyivatelskeho jmena
      */
     public function LoadAllUserinfos($username)
     {
@@ -47,4 +47,15 @@ class userinfo extends db_pdo
         $registruj = $this->DBInsert($table_name, $item);
         return $registruj;
     }
+    
+    public function LoadAllUsers()
+    {
+        $table_name = "users";
+        $columns = "*";
+        $where = array();
+        
+        $userinfo = $this->DBSelectAll($table_name, $columns, $where);
+        return $userinfo;
+    }
+    
 }
