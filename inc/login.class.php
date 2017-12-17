@@ -59,7 +59,7 @@ include_once("./inc/userinfo.class.php");
         elseif($count == 1 && $existuje == "0"){
             $error = "Tento uživatel byl eliminován, kontaktujte administrátora";
             echo $error;
-            printr($exist);
+            //printr($existuje);
             
         }
                 

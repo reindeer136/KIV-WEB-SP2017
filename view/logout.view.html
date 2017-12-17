@@ -5,12 +5,10 @@
     <input onclick="" type="submit" class="btn btn-info btn-sm " name="logout" value="Odhlásit">
 </form>
 <?php
-//unset($_SESSION);
-
     if($_SERVER["REQUEST_METHOD"] == "POST") {
     session_destroy();
     header("location: index.php");
-}
+    }
 ?>
 
 </html>

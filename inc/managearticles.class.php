@@ -1,6 +1,6 @@
 <?php
 
-class articlesread extends db_pdo
+class managearticles extends db_pdo
 {
     
     
@@ -46,6 +46,41 @@ class articlesread extends db_pdo
 
         $articlesinfo = $this->DBSelectAll($table_name, $columns, $where);
         return $articlesinfo;
+    }
+    
+    public function AddArticle($id_user, $a_name, $a_abstract, $a_filename)
+
+    {
+        $table_name = "articles";
+        $item = array();
+    
+        $item['id_user']    = $id_user;
+        $item['a_name']     = $a_name;
+        $item['a_abstract'] = $a_abstract;
+        $item['a_filename'] = $a_filename;
+        
+        $nahrajclanek = $this->DBInsert($table_name, $item);
+        return $nahrajclanek;
+        
+    }
+    /**
+     * Smaže/obnoví článek
+     */
+    public function DeleteArticle($id,$state)
+
+    {
+        printr($state);
+
+        $table_name = "articles";
+        $set[] = array("column" => "a_exist", "value" => $state, "symbol" => "=");
+        
+        printr($set);
+
+        //$where = array();
+        $where[] = array("column" => "id_article", "value" => $id, "symbol" => "=");
+        
+        $articledelete = $this->DBUpdate($table_name, $set, $where);
+        return $articledelete;
     }
     
     
