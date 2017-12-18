@@ -2,7 +2,7 @@
 
 //nacteni podpurnych souboru
 include_once("./inc/db_pdo.class.php");
-include_once("./inc/articlessave.class.php");
+include_once("./inc/managearticles.class.php");
 include_once("./inc/settings.inc.php");
 include_once("./inc/functions.inc.php");
 include_once("./view/articles.view.html");
@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $abstract   = $_POST['abstract'];
         $filename   = $_FILES["fileToUpload"]["name"];
        
-        $articles = new articlessave();
+        $articles = new managearticles();
         $articles->Connect();
     
         $zapis_dat = $articles->AddArticle($iduser, $nazev, $abstract, $filename);     

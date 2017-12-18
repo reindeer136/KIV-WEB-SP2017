@@ -1,5 +1,3 @@
-<?php
+<?php ?>
 
-    //echo "Homepage - a: $a, b: $b ";
-
-    //printr($params);
+<H2>Webová konference zaměřená na mobilní telefony</H2>

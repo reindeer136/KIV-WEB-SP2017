@@ -43,8 +43,8 @@ class manageevaluations extends db_pdo
     {
         $table_name = "evaluation";
         $columns = "*";
-        //$where[] = array("column" => "id_article", "value" => $id_article, "symbol" => "=");
-        $where = array();
+        $where[] = array("column" => "id_article", "value" => $id_article, "symbol" => "=");
+        //$where = array();
         
         
         //printr($where);

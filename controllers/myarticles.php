@@ -2,7 +2,7 @@
 
 // nacteni podpurnych souboru
 include_once("./inc/db_pdo.class.php");
-include_once("./inc/articlesread.class.php");
+include_once("./inc/managearticles.class.php");
 include_once("./inc/settings.inc.php");
 include_once("./inc/functions.inc.php");
 
@@ -10,7 +10,7 @@ include_once("./inc/functions.inc.php");
 
 
 // vytvoreni objektu
-    $articles = new articlesread();
+    $articles = new managearticles();
     $articles->Connect();
 
     $vypis_clanku = $articles->LoadMyArticles();

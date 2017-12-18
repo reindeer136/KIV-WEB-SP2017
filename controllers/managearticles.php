@@ -125,15 +125,14 @@ if ($vypis_clanku != null){
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
                                             <th>Jméno</th>
-                                            <th>Skore</th>
+                                            <th>Hodnocení</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td> <?php
-                                        
+                                    <?php
+    
+                                                //echo $articles["id_article"];
+
                                                 $kdohodnotil = new manageevaluations();
                                                 $kdohodnotil->Connect();
                                                 $hodnocenyclanek = $articles["id_article"];
@@ -142,46 +141,81 @@ if ($vypis_clanku != null){
         
                                                 //printr($hodnoceni_recenzentu);
                                         
-                                                if($kdohodnotil != null){
+                                                if($kdohodnotil != null){ ?>
+                                    
+                                    
+                                    
+                                    <tbody>
+                                         
+                                                    <?php
+                                                    foreach($hodnoceni_recenzentu as $kdohodnotil)
                                                     
-                                                    foreach($hodnoceni_recenzentu as $kdohodnotil){
-                                                        //printr($kdohodnotil["id_user"]);
+                                                    { ?>
+                                        <tr>
+                                            <td>    <?php
+                                                        //echo $kdohodnotil["id_user"];
                                                         
+                                                        $jmenorec = new userinfo();
+                                                        $jmenorec->Connect();
+                                                        
+                                                        $id_rreecc = $kdohodnotil["id_user"];
+                                                        
+                                                        $zjistijmeno = $jmenorec->LoadAllUserinfoAccToID($id_rreecc);
+                                                        
+                                                        foreach($zjistijmeno as $jmenorec){
+                                                            
+                                                            echo $jmenorec["name"];
+                                                            
+                                                        }
+                                                        
+                                                       ?>
+                                            
+                                            </td>
+                                            <td>        <?php 
+                                                        
+                                                        $score = $kdohodnotil["a_expertise"] + $kdohodnotil["a_length"] + $kdohodnotil["a_quality"];
+                                                        
+                                                        echo "Celkové skore = "; echo $score;
+                                                        //echo $kdohodnotil["a_expertise"];
+                                                        ?>
+                                            </td>
+                                        </tr>
+
+                                                      <?php  
                                                     }
                                                     
                                                     
                                                     
-                                                }?>
-                                        
-                                        
-                                            </td>
-                                            <td>
-                                            
-                                            </td>
-                                            <td> 
-                                            </td>
-                                        </tr>
-                                    
-                                        
+                                                }
+
+                                                ?> 
                                     </tbody>
                             </table>
                             
                             
                             
-                            
-                            <p>Na základě výše uvedených skutečností je nyní možné článek</p>
+                            <div>
+                            <p>Nyní zbývají již jen dvě možnosti: </p>
+                            <table>
+                            <tr><td>
                             <form action="" method="post">
                             <input type="hidden" name="changerole" value="3">
                             <input type="hidden" name="stavclanku" value="1">
                             <input type="hidden" name="articlerec" value="<?php echo $articles["id_article"] ?>">
-                                <button type="submit" class="btn btn-info btn-xs">schválit</button></form> nebo
-                            
+                            <button type="submit" class="btn btn-info btn-xs">Schválit</button></form>
+                                </td>
+                                
+                                <td>
                             <form action="" method="post">
                             <input type="hidden" name="changerole" value="3">
                             <input type="hidden" name="stavclanku" value="3">
                             <input type="hidden" name="articlerec" value="<?php echo $articles["id_article"] ?>">
-                            <button type="submit" class="btn btn-warning btn-xs">zamítnout</button>
+                            <button type="submit" class="btn btn-warning btn-xs">Zamítnout</button>
                             </form>
+                                    </td>
+                            </tr>
+                            </table>
+                            </div>
                             
                         </div>
                             
