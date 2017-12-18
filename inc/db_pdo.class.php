@@ -42,7 +42,7 @@ class db_pdo
 			
 		// vznik chyby v PDO
 		$mysql_pdo_error = false;
-			
+
 		// slozit si podminku s otaznikama
 		$where_pom = "";
 			
@@ -247,6 +247,8 @@ class db_pdo
 	 */
 	public function DBInsert($table_name, $item)
 	{
+        //printr($table_name);
+        //printr($item);
 		// MySql
 		$mysql_pdo_error = false;
 	
@@ -283,6 +285,7 @@ class db_pdo
 					
 				// 4) provest dotaz
 				$statement->execute();
+                //echo "SQL dotaz: $statement";
 	
 				// 5) kontrola chyb
 				$errors = $statement->errorInfo();
@@ -306,6 +309,7 @@ class db_pdo
 					printr($errors);
 					echo "SQL dotaz: $query";
 				}
+        
 	}
 	
 	
@@ -396,36 +400,42 @@ class db_pdo
 	public function DBUpdate($table_name, $set, $where_array)
 
 	{
-
         // MySql
-
 		$mysql_pdo_error = false;
 
-	
-
 		// SLOZIT TEXT STATEMENTU s otaznikama
-
         $where_pom ="";    
         $update_pom ="";        
 
 		if ($set != null)
 			foreach ($set as $index => $item)
 			{
+                
+                //printr($set);
+                //printr($index);
+                //printr($item);
+                
 
 				// pridat AND
 				if ($update_pom != "") $update_pom .= ", ";
                 
 				$column = $item["column"];
-
+                $symbol = $item["symbol"];
+                $value  = $item["value"];
+                
+                //printr($column);
+                
+                //printr($value);
+                
 				if (key_exists("value", $item))
-					$value_pom = "?"; 						
+					$value_pom = $value; 						
 				else if (key_exists("value_mysql", $item))
-					$value_pom = $item["value_mysql"]; 		
+					$value_pom = $item["value_mysql"];
+                //printr($value_pom);
 
-				$update_pom .= "`$column` =  $value_pom ";
-			}
-
-        
+				$update_pom .= "`$column` $symbol $value_pom ";
+                //printr($update_pom);
+			}      
 
         
 
@@ -438,9 +448,10 @@ class db_pdo
 
 				$column = $item["column"];
 				$symbol = $item["symbol"];
+                $value  = $item["value"];
 
 				if (key_exists("value", $item))
-					$value_pom = "?"; 						
+					$value_pom = $value; 						
 				else if (key_exists("value_mysql", $item))
 					$value_pom = $item["value_mysql"]; 		
 				$where_pom .= "`$column` $symbol  $value_pom ";
@@ -455,10 +466,11 @@ class db_pdo
 
 			// 1) pripravit dotaz s dotaznikama
 			$query = "update `".$table_name."` $update_pom  $where_pom;";
-				
+			
+            //printr($query);
 
 			// 2) pripravit si statement
-			$statement = $this->connection->prepare($query);				
+			$statement = $this->connection->prepare($query);		printr($statement);
 
 			// 3) NAVAZAT HODNOTY k otaznikum dle poradi od 1
 			$bind_param_number = 1;

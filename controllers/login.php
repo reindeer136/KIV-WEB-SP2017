@@ -4,6 +4,8 @@
         include_once("./view/login.view.html");        
     }
 
+/*
     else{
         include('./inc/logout.class.php');
     }
+*/

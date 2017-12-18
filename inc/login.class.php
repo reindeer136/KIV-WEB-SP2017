@@ -21,7 +21,7 @@ include_once("./inc/userinfo.class.php");
         $count = mysqli_num_rows($result);
         
         
-        //zjisteni, zda uzivatel nebyl eliminovat (musi byt v poli exist cislo 1, nikoli 0)
+        //zjisteni, zda uzivatel nebyl eliminovan (musi byt v radku exist cislo 1, nikoli 0)
         $userinfo = new userinfo();
         $userinfo->Connect();
 
@@ -59,7 +59,7 @@ include_once("./inc/userinfo.class.php");
         elseif($count == 1 && $existuje == "0"){
             $error = "Tento uživatel byl eliminován, kontaktujte administrátora";
             echo $error;
-            printr($exist);
+            //printr($existuje);
             
         }
                 
